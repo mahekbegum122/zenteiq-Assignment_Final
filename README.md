@@ -14,11 +14,15 @@ This repository contains my completed ML Engineer assignment for ZenteiQ AiTech 
 
 ## 📁 Repository Structure
 zenteiq-Assignment_Final/
-│
+│.
 ├── 📁 analysis/
+.
 │ ├── comparison_table.md
+.
 │ ├── figure4_comparison_table.png.jpg
+.
 │ └── final_analysis.md
+.
 │
 ├── 📁 code/
 │ ├── ZenteiQ_CPU_Assignment.ipynb
