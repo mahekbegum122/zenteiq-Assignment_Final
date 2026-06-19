@@ -134,36 +134,6 @@ This repository contains my completed ML Engineer assignment for ZenteiQ AiTech 
 
 ---
 
-## 📧 Contact
-
-**Mahek Begum**  
-[Your Email]  
-[Your LinkedIn Profile]  
-[Your Phone Number]
-
----
-
-## 📅 Submission Details
-
-- **Company**: ZenteiQ AiTech Innovations
-- **Position**: ML Engineer
-- **Submission Date**: June 2026
-- **Repository**: [https://github.com/mahekbegum122/zenteiq-Assignment_Final
-](https://github.com/mahekbegum122/zenteiq-Assignment_Final
-)
-
----
-
-## 📄 License
-
-This project is submitted as part of a job application. All rights reserved.
-
----
-
-**Thank you for reviewing my assignment! I look forward to discussing it in the next step.** 🎉)
-
----
-
 ## 📁 Repository Structure
 
 ---
