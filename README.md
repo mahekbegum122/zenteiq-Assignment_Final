@@ -12,41 +12,6 @@ This repository contains my completed ML Engineer assignment for ZenteiQ AiTech 
 
 ---
 
-## 📁 Repository Structure
-zenteiq-Assignment_Final/
-│.
-├── 📁 analysis/
-.
-│ ├── comparison_table.md
-.
-│ ├── figure4_comparison_table.png.jpg
-.
-│ └── final_analysis.md
-.
-│
-├── 📁 code/
-│ ├── ZenteiQ_CPU_Assignment.ipynb
-│ ├── ZenteiQ_GPU_Assignment.ipynb
-│ └── ZenteiQ_tpu_Assignment.ipynb
-│
-├── 📁 logs/
-│ ├── cpu_metrics.txt
-│ ├── metrics_gpu_pytorch.txt
-│ └── metrics_tpu_pytorch.txt
-│
-├── 📁 screenshots/
-│ ├── CPU_Runtime_Setting.jpg
-│ ├── GPU_Runtime_Setting.jpg
-│ ├── TPU_Runtime_Setting.jpg
-│ ├── figure1_cpu_training.png.jpg
-│ ├── figure2_gpu_training.png.jpg
-│ ├── figure3_tpu_training.png.jpg
-│ └── figure4_comparison_table.png.jpg
-│
-└── 📄 README.md
-
----
-
 ## 📊 Key Results Summary
 
 | Metric | CPU (JAX) | GPU (PyTorch) | TPU (PyTorch/XLA) |
