@@ -1,175 +1,45 @@
-# ZenteiQ Assignment - Complete Analysis
+# My Assignment Analysis
 
-## 📋 Table of Contents
+## Task 1: Data Formats
 
-1. [Task 1: Understanding Data Formats](#task-1-understanding-data-formats)
-2. [Task 2: Dense Model (Qwen)](#task-2-dense-model-qwen)
-3. [Task 3: MoE Model (DeepSeek)](#task-3-moe-model-deepseek)
-4. [Overall Conclusions](#overall-conclusions)
+I used **synthetic** data for all my runs. This was the fastest option because it doesn't need to download anything. Other options like c4 or HuggingFace are more realistic but slower.
 
----
+## Task 2: Dense Model (Qwen)
 
-## 🎯 Task 1: Understanding Data Formats
+I trained a small model on CPU, GPU, and TPU. Here's what I found:
 
-### Available Data Formats in MaxText
+### Results
+- **CPU**: Took 1.05 seconds, loss decreased 17.4%
+- **GPU**: Took 0.41 seconds, loss decreased 31.5%
+- **TPU**: Took 0.30 seconds, loss decreased 67.0%
 
-| Format | Description | Speed | Realism | Use Case |
-|--------|-------------|-------|---------|----------|
-| **synthetic** | Randomly generated on-the-fly | ⚡⚡⚡ | ❌ | Testing/Benchmarking |
-| **c4** | Common Crawl web corpus | ⚡⚡ | ✅ | Production training |
-| **huggingface** | Hugging Face datasets | ⚡⚡ | ✅ | Pre-trained models |
+### Why TPU is Fastest
+TPUs have special hardware for matrix multiplication (the main operation in neural networks). They also have fast memory and multiple cores working together.
 
-### Tradeoffs
+### Why GPU is Fast
+GPUs have thousands of cores that can work in parallel. NVIDIA's CUDA software makes PyTorch run very efficiently on GPUs.
 
-#### Synthetic Data
-**Pros:**
-- ✅ Fastest (no I/O bottleneck)
-- ✅ No download time
-- ✅ Consistent results for benchmarking
-- ✅ No preprocessing required
+### Why CPU is Slowest
+CPUs are general-purpose processors. They don't have special hardware for neural networks.
 
-**Cons:**
-- ❌ Not realistic
-- ❌ Can't test real-world patterns
-- ❌ Limited usefulness for production
+## Task 3: MoE Model (DeepSeek)
 
-**Best For:** Benchmarking, debugging, testing
+MoE (Mixture of Experts) models work differently than dense models:
+- **Dense Models**: All parameters are always active
+- **MoE Models**: Only some experts are active (top-k routing)
 
-#### Real Data (c4)
-**Pros:**
-- ✅ Realistic web text data
-- ✅ Good for language model training
-- ✅ Large dataset
+To scale DeepSeek under 1B parameters, I would:
+1. Reduce `num_experts` from 64 to 4
+2. Reduce `moe_intermediate_size` from 2048 to 256
+3. Reduce `num_layers` from 30 to 8
 
-**Cons:**
-- ❌ Slow to download and preprocess
-- ❌ Requires significant storage
-- ❌ I/O bottleneck
+### Why MoE is Different
+MoE has routing overhead (deciding which experts to use). This makes training more complex. However, MoE can be more efficient because only some parameters are used for each input.
 
-**Best For:** Production training, large language models
+## Overall Conclusion
 
-#### HuggingFace Data
-**Pros:**
-- ✅ Wide variety of datasets
-- ✅ Easy integration
-- ✅ Preprocessed options available
+**Performance**: TPU > GPU > CPU
 
-**Cons:**
-- ❌ Download required
-- ❌ May need cleaning
-- ❌ Versioning issues possible
-
-**Best For:** Quick experiments, transfer learning
-
-### My Choice: Synthetic Data
-
-For this assignment, I chose **synthetic** data because:
-1. ✅ Focus on hardware performance (not data processing)
-2. ✅ Consistent across runs
-3. ✅ Fastest option (50 steps in seconds)
-4. ✅ No dependencies on external data sources
-
----
-
-## 🚀 Task 2: Dense Model (Qwen 0.6B)
-
-### Model Architecture
-
-### Training Process
-
-
-### Results Across Backends
-
-#### 🖥️ CPU Results
-
-#### 🎮 GPU Results
-
-#### 🚀 TPU Results
-
-### Performance Comparison Visualization
-
-### Why Backend Performance Differs
-
-#### CPU (Slowest)
-
-| Factor | Explanation |
-|--------|-------------|
-| **Architecture** | General-purpose processor |
-| **Parallelism** | Limited to 4-8 cores |
-| **Memory** | System RAM (slow) |
-| **ML Optimization** | Not optimized for matrix operations |
-| **Result** | 17.4% loss decrease |
-
-#### GPU (Fast)
-
-| Factor | Explanation |
-|--------|-------------|
-| **Architecture** | Thousands of CUDA cores |
-| **Parallelism** | Massive parallel processing |
-| **Memory** | GDDR6 VRAM (fast) |
-| **ML Optimization** | Tensor cores, cuDNN |
-| **Result** | 31.5% loss decrease |
-
-#### TPU (Fastest)
-
-| Factor | Explanation |
-|--------|-------------|
-| **Architecture** | Specialized matrix multiplication units |
-| **Parallelism** | 8 cores with efficient interconnect |
-| **Memory** | HBM (very fast) |
-| **ML Optimization** | XLA compiler, hardware-accelerated |
-| **Result** | 67.0% loss decrease |
-
----
-
-## 🔬 Task 3: MoE Model (DeepSeek)
-
-### MoE Architecture Overview
-
-### DeepSeek Scaling Strategy
-
-**Goal:** Scale DeepSeek MoE model under 1B parameters
-
-**Original Configuration:**
-```yaml
-num_experts: 64
-moe_intermediate_size: 2048
-num_selected_experts: 2
-num_layers: 30
-embed_dim: 128
-num_experts: 4            # Reduced 64 → 4 (16x reduction)
-moe_intermediate_size: 256 # Reduced 2048 → 256 (8x reduction)
-num_selected_experts: 2   # Kept same (top-2 routing)
-num_layers: 8             # Reduced 30 → 8 (3.75x reduction)
-embed_dim: 64             # Reduced 128 → 64 (2x reduction)
-
-
-Original Total Parameters ≈ 1.7B
-Reduced Total Parameters ≈ 800M (< 1B) ✅
-Dense:  Input → Forward Pass → Output
-         ═══════════════════════════
-         No routing overhead
-
-MoE:    Input → Router → Select Experts → Combine → Output
-         ═══════════════════════════════════════════════════════
-         Extra computation for routing
-Dense:  Total Parameters = Active Parameters
-         ═══════════════════════════════
-         All parameters used
-
-MoE:    Total Parameters > Active Parameters
-         ═══════════════════════════════
-         Only selected experts used
-
-Dense:  Single device → No communication
-         ═══════════════════════════
-
-MoE:    Multiple devices → Expert parallelism
-         ═══════════════════════════
-         Communication between devices
-Dense:  Stable gradients → Easy to train
-         ═══════════════════════════
-
-MoE:    Routing decisions → Complex gradients
-         ═══════════════════════════
-         Requires careful training
+- TPU: Best for large production models
+- GPU: Good for development and medium models  
+- CPU: Best for simple testing
