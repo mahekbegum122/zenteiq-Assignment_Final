@@ -1,12 +1,25 @@
-# Performance Comparison Table
+# Performance Comparison: CPU vs GPU vs TPU
 
-## Dense Model (Qwen 0.6B) - 50 Steps Training
+## 📊 Executive Summary
+
+This document presents a comprehensive comparison of training performance across three hardware backends for a dense language model (Qwen 0.6B equivalent). All runs used **synthetic data** with **50 training steps**.
+
+---
+
+## 🏆 Overall Performance Ranking
+
+---
+
+## 📈 Detailed Comparison Table
 
 | Metric | CPU (JAX) | GPU (PyTorch) | TPU (PyTorch/XLA) |
 |--------|-----------|---------------|-------------------|
-| **Device** | TFRT_CPU_0 | cuda (Tesla T4) | xla:0 (TPU) |
+| **Hardware** | Intel/AMD CPU | NVIDIA Tesla T4 | Google TPU v2-8 |
 | **Framework** | JAX 0.4.20 | PyTorch 2.2.0 | PyTorch 2.9.0 |
 | **NumPy Version** | 1.26.4 | 1.26.4 | 2.0.2 |
+| **Device Detected** | TFRT_CPU_0 | cuda:0 | xla:0 |
+| **Cores/Processors** | 1 (virtual) | 1 (virtual) | 1 of 8 detected |
+| **Memory Type** | System RAM | GDDR6 VRAM (16GB) | HBM (High Bandwidth) |
 | **Avg Step Time (s)** | 0.0209 | 0.0081 | 0.0060 |
 | **Total Training Time (s)** | 1.05 | 0.41 | 0.30 |
 | **Initial Loss** | 4.6209 | 4.9787 | 4.7204 |
@@ -17,65 +30,99 @@
 
 ---
 
-## Performance Visualization
+## 📊 Performance Visualization
 
 ### Speed Comparison (Faster = Better)
 
 ### Step Time Comparison (Lower = Better)
 
-
 ### Loss Decrease (Higher = Better)
 
+---
+
+## 🏗️ Architecture Diagrams
+
+### 1. CPU Architecture
+
+
+
+**Key Characteristics:**
+- ✅ General-purpose processing
+- ✅ Good for sequential tasks
+- ❌ Limited parallelism
+- ❌ Not optimized for matrix operations
 
 ---
 
-## Key Insights
+### 2. GPU Architecture
 
-### 🏆 Performance Ranking
-1. **TPU**: Fastest (3.5x CPU speedup) & Best Learning (67% loss decrease)
-2. **GPU**: Fast (2.6x CPU speedup) & Good Learning (31.5% loss decrease)
-3. **CPU**: Baseline (1.0x) & Moderate Learning (17.4% loss decrease)
 
-### 📈 Why TPU Performed Best
-- Specialized hardware for matrix multiplication
-- High-bandwidth memory (HBM) architecture
-- Optimized tensor cores for neural networks
-
-### 💡 Why GPU Performed Well
-- Thousands of CUDA cores for parallel computation
-- PyTorch's CUDA optimization
-- Good balance of speed and accessibility
-
-### ⚠️ Why CPU Was Slowest
-- General-purpose processor (limited parallelism)
-- Not optimized for matrix operations
-- System RAM vs specialized VRAM/HBM
+**Key Characteristics:**
+- ✅ Thousands of parallel cores
+- ✅ High-bandwidth VRAM
+- ✅ Tensor cores for ML acceleration
+- ✅ Excellent for matrix multiplication
 
 ---
 
-## MoE vs Dense Model Comparison
+### 3. TPU Architecture
 
-| Aspect | Dense (Qwen) | MoE (DeepSeek) |
-|--------|--------------|----------------|
-| **Architecture** | All parameters active | Sparse activation (top-k routing) |
-| **Parameter Efficiency** | Lower | Higher (active vs total) |
-| **Training Complexity** | Simpler | More complex |
-| **Inference Speed** | Good | Can be faster |
-| **Memory Usage** | Higher | Lower (with sparsity) |
-
-### Why MoE Numbers Differ From Dense
-1. **Routing Overhead**: Extra computation to decide which experts to use
-2. **Active vs Total Parameters**: Only selected experts are active
-3. **Communication Overhead**: When experts are on different devices
-4. **Training Stability**: More challenging due to routing decisions
+**Key Characteristics:**
+- ✅ Specialized matrix multiplication hardware
+- ✅ High-bandwidth memory (HBM)
+- ✅ Efficient parallel processing
+- ✅ Optimized for neural networks
 
 ---
 
-## Conclusion
+## 🔬 Detailed Interpretation
 
-The performance hierarchy **TPU > GPU > CPU** holds true for this task:
-- **TPU**: Best for large-scale production training
-- **GPU**: Best for development and medium-scale training
+### Why Numbers Differ Across Backends
+
+#### 1. CPU (Slowest)
+
+#### 2. GPU (Fast)
+
+#### 3. TPU (Fastest)
+
+---
+
+## 💡 Key Insights
+
+### 1. TPU is 3.5x Faster Than CPU
+- **Reason**: Specialized hardware for matrix multiplication
+- **Impact**: 67% loss decrease vs 17.4% on CPU
+- **Conclusion**: TPUs significantly improve training efficiency
+
+### 2. GPU is 2.6x Faster Than CPU
+- **Reason**: Thousands of CUDA cores and optimized libraries
+- **Impact**: 31.5% loss decrease vs 17.4% on CPU
+- **Conclusion**: GPUs are excellent for development
+
+### 3. Framework Matters
+- **CPU**: JAX (worked with compatibility issues)
+- **GPU/TPU**: PyTorch (stable and optimized)
+- **Conclusion**: Choose framework based on hardware
+
+---
+
+## 🎯 Recommendations
+
+| Scenario | Recommended Hardware | Why |
+|----------|---------------------|-----|
+| **Prototyping** | CPU | Simplest setup, good for testing |
+| **Development** | GPU | Fast, good debugging, accessible |
+| **Production (<1B params)** | GPU | Cost-effective, good performance |
+| **Production (>1B params)** | TPU | Best performance, cost-effective at scale |
+
+---
+
+## 📝 Conclusion
+
+**Performance Hierarchy**: TPU > GPU > CPU
+
+- **TPU**: Best for large-scale training
+- **GPU**: Best for development and medium models
 - **CPU**: Best for prototyping and debugging
 
 ---
