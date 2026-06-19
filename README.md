@@ -312,9 +312,12 @@ This project is submitted as part of a job application. All rights reserved.
 ## 📧 Contact
 
 **Mahek Begum**  
-[Your Email]  
-[Your LinkedIn Profile]  
-[Your Phone Number]
+
+Email: mahekbegum54@gmail.com
+Phone: 6304297409
+GitHub: https://github.com/mahekbegum122
+LinkedIn: https://www.linkedin.com/in/mahek-begum-620098328/
+Portfolio: https://github.com/mahekbegum122/Mahek_Portfolio/blob/main/README.md
 
 ---
 
@@ -326,12 +329,6 @@ This project is submitted as part of a job application. All rights reserved.
 - **Repository**: [https://github.com/mahekbegum122/zenteiq-Assignment_Final
 ](https://github.com/mahekbegum122/zenteiq-Assignment_Final
 )
-
----
-
-## 📄 License
-
-This project is submitted as part of a job application. All rights reserved.
 
 ---
 
