@@ -7,7 +7,8 @@ This repository contains my completed ML Engineer assignment for ZenteiQ AiTech 
 **Author**: Mahek Begum  
 **Date**: June 2026  
 **Position**: ML Engineer  
-**GitHub**: [mahekbegum122/zenteiq-Assignment](https://github.com/mahekbegum122/
+**GitHub**: [mahekbegum122/zenteiq-Assignment_Final
+](https://github.com/mahekbegum122/
 ---
 
 ## 🎯 Tasks Completed
@@ -147,7 +148,8 @@ This repository contains my completed ML Engineer assignment for ZenteiQ AiTech 
 - **Company**: ZenteiQ AiTech Innovations
 - **Position**: ML Engineer
 - **Submission Date**: June 2026
-- **Repository**: [https://github.com/mahekbegum122/zenteiq-Assignment](https://github.com/mahekbegum122/zenteiq-Assignment_Final
+- **Repository**: [https://github.com/mahekbegum122/zenteiq-Assignment_Final
+](https://github.com/mahekbegum122/zenteiq-Assignment_Final
 )
 
 ---
@@ -321,7 +323,9 @@ This project is submitted as part of a job application. All rights reserved.
 - **Company**: ZenteiQ AiTech Innovations
 - **Position**: ML Engineer
 - **Submission Date**: June 2026
-- **Repository**: [https://github.com/mahekbegum122/zenteiq-Assignment](https://github.com/mahekbegum122/zenteiq-Assignment)
+- **Repository**: [https://github.com/mahekbegum122/zenteiq-Assignment_Final
+](https://github.com/mahekbegum122/zenteiq-Assignment_Final
+)
 
 ---
 
